@@ -1,4 +1,4 @@
-SOURCE="https://inkscape.org/de/gallery/item/13316/Inkscape-9dee831-x86_64.AppImage"
+SOURCE="https://inkscape.org/gallery/item/18047/Inkscape-09960d6-x86_64.AppImage"
 DESTINATION="Inkscape.AppImage"
 
 all:
