@@ -9,11 +9,28 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-DESTINATION:="Inkscape.AppImage"
 PWD:=$(shell pwd)
 
 
-all:
-	echo "Building: $(OUTPUT)"
-	wget --output-document=$(PWD)/Inkscape.AppImage https://inkscape.org/gallery/item/18047/Inkscape-09960d6-x86_64.AppImage
+all: clean
+	mkdir --parents $(PWD)/build/Boilerplate.AppDir
+	apprepo --destination=$(PWD)/build appdir boilerplate libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libreadline8	
+
+	wget --output-document=$(PWD)/build/Inkscape.AppImage https://inkscape.org/gallery/item/18047/Inkscape-09960d6-x86_64.AppImage
+	chmod +x $(PWD)/build/Inkscape.AppImage
+	cd $(PWD)/build && $(PWD)/build/Inkscape.AppImage --appimage-extract
+
+	rm -rf $(PWD)/build/Boilerplate.AppDir/lib64/x86_64-linux-gnu
+	rm -rf $(PWD)/build/squashfs-root/usr/share/metainfo/org.inkscape.Inkscape.appdata.xml	
+
+	cp --recursive --force $(PWD)/build/Boilerplate.AppDir/share/* $(PWD)/build/squashfs-root/usr/share
+
+	sed -i '3iXDG_DATA_DIRS=\$${XDG_DATA_DIRS}:\$${APPDIR}/share' $(PWD)/build/squashfs-root/AppRun
+	sed -i '4iexport XDG_DATA_DIRS=\$${XDG_DATA_DIRS}' $(PWD)/build/squashfs-root/AppRun
+
+	export ARCH=x86_64 && $(PWD)/bin/appimagetool.AppImage $(PWD)/build/squashfs-root $(PWD)/Inkscape.AppImage
 	chmod +x $(PWD)/Inkscape.AppImage
+
+clean:
+	rm -rf $(PWD)/*.AppImage
+	rm -rf $(PWD)/build
