@@ -17,7 +17,7 @@ all: clean
 	apprepo --destination=$(PWD)/build appdir boilerplate libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libreadline8 \
 										libselinux1 libtinfo6 libncurses6 libtinfo5 libssh-4
 
-	wget --output-document=$(PWD)/build/Inkscape.AppImage https://media.inkscape.org/dl/resources/file/Inkscape-c4e8f9e-x86_64.AppImage
+	wget --output-document=$(PWD)/build/Inkscape.AppImage https://inkscape.org/gallery/item/42330/Inkscape-0e150ed-x86_64.AppImage
 	chmod +x $(PWD)/build/Inkscape.AppImage
 	cd $(PWD)/build && $(PWD)/build/Inkscape.AppImage --appimage-extract
 
