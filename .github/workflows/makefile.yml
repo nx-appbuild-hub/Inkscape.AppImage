@@ -1,0 +1,21 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build
+      run: |
+        curl -o apprepo https://github.com/area-of-dev/apprepo.AppImage/releases/download/latest/apprepo.AppImage
+        chmod +x apprepo
+        PATH=$PATH:$PWD make all
+
+    - name: Release
+      uses: actions/upload-artifact@v4.3.0
+      with:
+        path: '*.AppImage'
+        overwrite: true
