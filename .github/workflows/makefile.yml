@@ -21,7 +21,8 @@ jobs:
         PATH=$PATH:$PWD make all
 
     - name: Release
-      uses: actions/upload-artifact@v4.3.0
+      uses: djnicholson/release-action@v2.11
       with:
-        path: '*.AppImage'
-        overwrite: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        asset-name: ${{ github.event.repository.name }}
+        file: ${{ github.event.repository.name }}
