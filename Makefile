@@ -24,7 +24,7 @@ all: clean
 	rm -rf $(PWD)/build/Boilerplate.AppDir/lib64/x86_64-linux-gnu
 	rm -rf $(PWD)/build/squashfs-root/usr/share/metainfo/org.inkscape.Inkscape.appdata.xml	
 
-	cp --recursive --force $(PWD)/build/Boilerplate.AppDir/share/* $(PWD)/build/squashfs-root/usr/share
+	cp --recursive --force $(PWD)/build/Boilerplate.AppDir/share/* $(PWD)/build/squashfs-root/usr/share || true
 
 	sed -i '3iXDG_DATA_DIRS=\$${XDG_DATA_DIRS}:\$${APPDIR}/share' $(PWD)/build/squashfs-root/AppRun
 	sed -i '4iexport XDG_DATA_DIRS=\$${XDG_DATA_DIRS}' $(PWD)/build/squashfs-root/AppRun
