@@ -12,6 +12,7 @@ jobs:
       run: |
         curl -o apprepo https://github.com/area-of-dev/apprepo.AppImage/releases/download/latest/apprepo.AppImage
         chmod +x apprepo
+        ls; exit 0
         PATH=$PATH:$PWD make all
 
     - name: Release
