@@ -16,10 +16,11 @@ jobs:
       run: |
         sudo apt-get -y install libfuse2
 
-    - name: Build
-      run: |
         curl -o apprepo https://github.com/area-of-dev/apprepo.AppImage/releases/download/latest/apprepo.AppImage
         chmod +x apprepo
+
+    - name: Build
+      run: |
         PATH=$PATH:$PWD make all
 
     - name: Release
